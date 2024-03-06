@@ -30,6 +30,7 @@ class DeliveryTest {
         var daysToAddForSecondMeeting = 7;
         var secondMeetingDate = DataGenerator.generateDate(daysToAddForSecondMeeting);
 
+
         open("http://localhost:9999");
 
         //ищем эелементы
@@ -38,6 +39,7 @@ class DeliveryTest {
         //взаимодействуем с элементами
         form.$("[data-test-id=city] input").setValue(validUser.getCity());
         form.$("[data-test-id=date] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.DELETE);
+        form.$("[data-test-id=date] input").setValue(firstMeetingDate);
         form.$("[data-test-id=date] input").setValue(firstMeetingDate);
         form.$("[data-test-id=name] input").setValue(validUser.getName());
         form.$("[data-test-id=phone] input").setValue(validUser.getPhone());
@@ -57,7 +59,9 @@ class DeliveryTest {
                 .shouldHave(text("У вас уже запланирована встреча на другую дату. Перепланировать?"));
         $("[data-test-id =\"replan-notification\"] .button").click();
 
+        $("[data-test-id=success-notification]");
         $("[data-test-id=success-notification]")
+
                 .shouldBe(visible)
                 .shouldHave(text(secondMeetingDate));
 
